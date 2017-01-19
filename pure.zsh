@@ -14,6 +14,7 @@
 # %* => time
 # %n => username
 # %m => shortname host
+# %j => jobs
 # %(?..) => prompt conditional - %(condition.true.false)
 # terminal codes:
 # \e7   => save cursor position
@@ -365,7 +366,7 @@ prompt_pure_setup() {
 
 	# prompt turns red if the previous command didn't exit with 0
 	# shows background jobs if any
-	PROMPT=$'`jobs -l | wc -l | sed "s/^[[:space:]]*//;s/[[:space:]]*$//" | awk \'$1 > "0" { printf "[%d] ", $1; }\'`%(?.%F{magenta}.%F{red})${PURE_PROMPT_SYMBOL:-❯}%f '
+	PROMPT=$'%(1j.[%j] .)%(?.%F{magenta}.%F{red})${PURE_PROMPT_SYMBOL:-❯}%f '
 }
 
 prompt_pure_setup "$@"
